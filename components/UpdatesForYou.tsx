@@ -35,7 +35,7 @@ function UpdatesForYou() {
   return (
 
       <div className={styles.update}>
-        <div className={styles.title_update}>Updates for You</div>
+        <div className={styles.title}>Updates for You</div>
         <div className={styles.banner}>
           <Carousel autoplay>
             {informs.map((inform, index) => {
@@ -52,7 +52,7 @@ function UpdatesForYou() {
                     </span>
                     <span className={styles.content}>
                       <div className={styles.text}>
-                        <span className={styles.title}>{inform.title} </span>
+                        <span className={styles.title_update}>{inform.title} </span>
                         <span>{inform.subtitle}</span>
                       </div>
                       <Link href="/">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input, Radio } from "antd";
 import { UpdatesAPI } from "../pages/api/update/updates.api";
+import styles from "../styles/Home.module.css";
 
 interface Values {
     img: string;
@@ -42,8 +43,7 @@ function CreateUpdate() {
             if (response.error) {
               console.log(response.message); 
             } else {
-                console.log("Received values of form: ", values);
-                
+                console.log("Received values of form: ", values);          
             }
 
       
@@ -155,11 +155,12 @@ function CreateUpdate() {
 
     return (
         <div>
+            <div className={styles.title}>Create an update</div>
             <form onSubmit={onCreate}>
-                <input id="input_product" onChange={(e) => setImg(e.target.value)} type="text" name="img" placeholder="Image Url" required/>
-                <input id="input_product" onChange={(e) => setTitle(e.target.value)} type="text" name="title" placeholder="Title" required/>
-                <input id="input_product" onChange={(e) => setSubtitle(e.target.value)} type="text" name="subtitle" placeholder="Subtitle" required/>
-                <input id="input_product" onChange={(e) => setUrl(e.target.value)} type="text" name="url" placeholder="Content Url" required/>
+                <input onChange={(e) => setImg(e.target.value)} type="text" name="img" placeholder="Image Url" required/>
+                <input onChange={(e) => setTitle(e.target.value)} type="text" name="title" placeholder="Title" required/>
+                <input onChange={(e) => setSubtitle(e.target.value)} type="text" name="subtitle" placeholder="Subtitle" required/>
+                <input onChange={(e) => setUrl(e.target.value)} type="text" name="url" placeholder="Content Url" required/>
                 <input type="submit"/>
             </form>
             {/* <Button

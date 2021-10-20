@@ -25,7 +25,7 @@
     background-color: rgb(240, 248, 255);
     padding: 10px 30px;
 }
-.title_update{
+.title{
     font-size: 20px;
     font-weight: 600;
     color: rgb(82, 82, 82);
@@ -58,7 +58,7 @@
 .text{
     font-size: 18px;
 }
-.title{
+.title_update{
     font-weight: 700;
 }
 .link{

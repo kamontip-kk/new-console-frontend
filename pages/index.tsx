@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar'
 import PleaseLogin from '../components/PleaseLogin'
 import UpdatesForYou from '../components/UpdatesForYou'
 import CreateUpdate from '../components/CreateUpdate'
+import DeleteUpdate from '../components/DeleteUpdate'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
         <div>
           <UpdatesForYou/>
           <CreateUpdate/>
+          <DeleteUpdate/>
         </div>
       )
     }

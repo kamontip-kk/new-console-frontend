@@ -40,7 +40,7 @@ export class UpdatesAPI{
     // public static async updateUpdate(id: string, updateUpdatesDto: UpdateUpdateDto): Promise<Update>{
     //     const { status } = updateUpdatesDto;
     //     const response = await fetch('http://localhost:8000/update',{
-    //         method: 'PATCH',
+    //         method: 'PUT',
     //         headers: {
     //             'Content-Type' : 'application/json',
     //         },
@@ -52,17 +52,17 @@ export class UpdatesAPI{
         
     // }
 
-    // public static async deleteUpdateById(id: string): Promise<void>{
-    //     const response = await fetch('http://localhost:8000/update',{
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type' : 'application/json',
-    //         },
-    //         body: JSON.stringify(id)
-    //     })
+    public static async deleteUpdateById(id: string){
+        const response = await fetch(`http://localhost:8000/update/${id}`,{
+            method: 'DELETE',
+            // headers: {
+            //     'Content-Type' : 'application/json',
+            // },
+            // body: JSON.stringify(id)
+        })
 
-    //     const data = await response.json();
-    //     return data;
+        const data = await response.json();
+        return data;
         
-    // }
+    }
 }
