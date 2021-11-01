@@ -4,11 +4,12 @@ import { Update } from "./update.entity";
 
 export class UpdatesAPI{
     public static async getAllUpdates(): Promise<Update[]>{
+        const token = localStorage.getItem('token')
         const response = await fetch('http://localhost:8000/update',{
             method: 'GET',
-            // headers: {
-            //     Authorization: 'Bearer' + token
-            // },
+            headers: {
+                Authorization: 'Bearer' + token
+            },
         })
 
         const data = await response.json();
@@ -37,28 +38,23 @@ export class UpdatesAPI{
         
     }
 
-    // public static async updateUpdate(id: string, updateUpdatesDto: UpdateUpdateDto): Promise<Update>{
-    //     const { status } = updateUpdatesDto;
-    //     const response = await fetch('http://localhost:8000/update',{
-    //         method: 'PUT',
-    //         headers: {
-    //             'Content-Type' : 'application/json',
-    //         },
-    //         body: JSON.stringify(status)
-    //     })
-
-    //     const data = await response.json();
-    //     return data;
-        
-    // }
-
     public static async deleteUpdateById(id: string){
         const response = await fetch(`http://localhost:8000/update/${id}`,{
             method: 'DELETE',
-            // headers: {
-            //     'Content-Type' : 'application/json',
-            // },
-            // body: JSON.stringify(id)
+        })
+
+        const data = await response.json();
+        return data;
+    }
+
+    public static async updateUpdate(id: string, updateUpdatesDto: UpdateUpdateDto){
+        const { status } = updateUpdatesDto;
+        const response = await fetch(`http://localhost:8000/update/${id}/status`,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({status: `${status}`})
         })
 
         const data = await response.json();

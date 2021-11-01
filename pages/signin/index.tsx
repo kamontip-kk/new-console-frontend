@@ -17,18 +17,23 @@ const SignIn = () => {
         password,
       });
 
-      if (response.error) {
-        alert(response.message);
-        console.log(response);
-      } else {
-        if (response.accessToken) {
+      // if (response.error) {
+      //   alert(response.message);
+      //   console.log(response);
+      // } else {
+      //   if (response.accessToken) {
+      //     console.log(response.accessToken)
+      //     // localStorage.setItem('token',response.accessToken)
+      //     // router.push("/");
+      //   } else {
+      //     return null;
+      //   }
+      // }
 
-          localStorage.setItem('token',response.accessToken)
-          router.push("/");
-        } else {
-          return null;
-        }
-      }
+      console.log(response.token);
+      localStorage.setItem('token',response.token)
+      router.push("/");
+
     } catch (error) {
       console.log(error);
     }
@@ -40,8 +45,8 @@ const SignIn = () => {
 
   useEffect(()=>{
     const token = localStorage.getItem('token');
-    if(token){
-      router.push('/');
+    if(token && token !== undefined){
+      // router.push('/');
     }
   }), [];
 

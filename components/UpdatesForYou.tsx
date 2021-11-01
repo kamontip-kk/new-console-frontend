@@ -6,6 +6,7 @@ import { UpdatesAPI } from "../pages/api/update/updates.api";
 import { Update } from "../pages/api/update/update.entity";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
 // const myLoader = ({src}:any) => {
 //   return `${process.env.NEXT_PUBLIC_BASE_ASSET}/img/${src}`
@@ -29,6 +30,11 @@ function UpdatesForYou() {
     };
 
     fetchInforms();
+
+    // axios.get(`http://localhost:8000/update`)
+    // .then(res => {
+    //     setInforms(res);
+    // })
 
   }, []);
 

@@ -6,6 +6,7 @@ import PleaseLogin from '../components/PleaseLogin'
 import UpdatesForYou from '../components/UpdatesForYou'
 import CreateUpdate from '../components/CreateUpdate'
 import DeleteUpdate from '../components/DeleteUpdate'
+import UpdateUpdate from '../components/UpdateUpdate'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
           <UpdatesForYou/>
           <CreateUpdate/>
           <DeleteUpdate/>
+          <UpdateUpdate/>
         </div>
       )
     }

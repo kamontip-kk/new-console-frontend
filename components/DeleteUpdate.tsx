@@ -24,7 +24,7 @@ function DeleteUpdate () {
         <div className={styles.deleteupdate}>
             <div className={styles.title}>Delete Update by ID</div>
             <form onSubmit={onSubmit}>
-                <input onChange={(e) => setId(e.target.value)} type="text" name="id" placeholder="Update ID" required/>
+                <input onChange={(e) => setId(e.target.value)} type="text" name="id" placeholder="ID" required/>
                 <input type="submit"/>
             </form>
         </div>
