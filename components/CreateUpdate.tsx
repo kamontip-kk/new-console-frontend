@@ -27,31 +27,31 @@ function CreateUpdate() {
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
     // const [imgName, setImgName] = useState();
-    const [image, setImage] = useState();
+    // const [image, setImage] = useState();
     const [imgUrl, setImgUrl] = useState('');
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
     const [url, setUrl] = useState('');
 
-    const props = {
-        name: 'file',
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-        headers: {
-          authorization: 'authorization-text',
-        },
+    // const props = {
+    //     name: 'file',
+    //     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    //     headers: {
+    //       authorization: 'authorization-text',
+    //     },
     
-        // onChange(info:any) {
-        //   if (info.file.status !== 'uploading') {
-        //     console.log(info.file, info.fileList);
-        //   }
-        //   if (info.file.status === 'done') {
-        //     message.success(`${info.file.name} file uploaded successfully`);
-        //     setImgName(info.file.name);
-        //   } else if (info.file.status === 'error') {
-        //     message.error(`${info.file.name} file upload failed.`);
-        //   }
-        // },
-    };
+    //     // onChange(info:any) {
+    //     //   if (info.file.status !== 'uploading') {
+    //     //     console.log(info.file, info.fileList);
+    //     //   }
+    //     //   if (info.file.status === 'done') {
+    //     //     message.success(`${info.file.name} file uploaded successfully`);
+    //     //     setImgName(info.file.name);
+    //     //   } else if (info.file.status === 'error') {
+    //     //     message.error(`${info.file.name} file upload failed.`);
+    //     //   }
+    //     // },
+    // };
 
     const handleChange = async (e:any) =>{
         const file = e.target.files[0]
@@ -110,107 +110,107 @@ function CreateUpdate() {
         // setVisible(false);
     };
 
-    const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
-        visible,
-        onCreate,
-        onCancel,
-    }) => {
+    // const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
+    //     visible,
+    //     onCreate,
+    //     onCancel,
+    // }) => {
     
-        return (
-            <Modal
-                visible={visible}
-                title="Create a new update"
-                okText="Create"
-                cancelText="Cancel"
-                onCancel={onCancel}
-                onOk={() => {
-                    form
-                        .validateFields()
-                        .then((values) => {
-                            form.resetFields();
-                            onCreate(values);
-                        })
-                        .catch((info) => {
-                            console.log("Validate Failed:", info);
-                        });
-                }}
-            >
-                <Form
-                    form={form}
-                    layout="vertical"
-                    name="form_in_modal"
-                    // initialValues={{ modifier: "OPEN" }}
-                >
-                    {/* <Form.Item
-                        name="img"
-                        label="Image"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please upload image!",
-                            },
-                        ]}
-                    > */}
-                        <Upload {...props}>
-                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                        </Upload>
-                        {/* <Input type="text"/> */}
-                    {/* </Form.Item> */}
+    //     return (
+    //         <Modal
+    //             visible={visible}
+    //             title="Create a new update"
+    //             okText="Create"
+    //             cancelText="Cancel"
+    //             onCancel={onCancel}
+    //             onOk={() => {
+    //                 form
+    //                     .validateFields()
+    //                     .then((values) => {
+    //                         form.resetFields();
+    //                         onCreate(values);
+    //                     })
+    //                     .catch((info) => {
+    //                         console.log("Validate Failed:", info);
+    //                     });
+    //             }}
+    //         >
+    //             <Form
+    //                 form={form}
+    //                 layout="vertical"
+    //                 name="form_in_modal"
+    //                 // initialValues={{ modifier: "OPEN" }}
+    //             >
+    //                 {/* <Form.Item
+    //                     name="img"
+    //                     label="Image"
+    //                     rules={[
+    //                         {
+    //                             required: true,
+    //                             message: "Please upload image!",
+    //                         },
+    //                     ]}
+    //                 > */}
+    //                     <Upload {...props}>
+    //                         <Button icon={<UploadOutlined />}>Click to Upload</Button>
+    //                     </Upload>
+    //                     {/* <Input type="text"/> */}
+    //                 {/* </Form.Item> */}
 
-                    <Form.Item
-                        name="title"
-                        label="Title"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input the title!",
-                            },
-                        ]}
-                    >
-                        <Input type="text"/>
-                    </Form.Item>
-                    <Form.Item
-                        name="subtitle"
-                        label="Subitle"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input the subtitle!",
-                            },
-                        ]}
-                    >
-                        <Input type="text"/>
+    //                 <Form.Item
+    //                     name="title"
+    //                     label="Title"
+    //                     rules={[
+    //                         {
+    //                             required: true,
+    //                             message: "Please input the title!",
+    //                         },
+    //                     ]}
+    //                 >
+    //                     <Input type="text"/>
+    //                 </Form.Item>
+    //                 <Form.Item
+    //                     name="subtitle"
+    //                     label="Subitle"
+    //                     rules={[
+    //                         {
+    //                             required: true,
+    //                             message: "Please input the subtitle!",
+    //                         },
+    //                     ]}
+    //                 >
+    //                     <Input type="text"/>
     
-                    </Form.Item>
-                    <Form.Item
-                        name="url"
-                        label="Content Url"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input the Url of the Content!",
-                            },
-                        ]}
-                    >
-                        <Input type="text"/>
-                    </Form.Item>
+    //                 </Form.Item>
+    //                 <Form.Item
+    //                     name="url"
+    //                     label="Content Url"
+    //                     rules={[
+    //                         {
+    //                             required: true,
+    //                             message: "Please input the Url of the Content!",
+    //                         },
+    //                     ]}
+    //                 >
+    //                     <Input type="text"/>
+    //                 </Form.Item>
     
-                    {/* <Form.Item
-                        name="modifier"
-                        className="collection-create-form_last-form-item"
-                        label="Status"
-                    >
+    //                 {/* <Form.Item
+    //                     name="modifier"
+    //                     className="collection-create-form_last-form-item"
+    //                     label="Status"
+    //                 >
 
-                        <Select defaultValue="OPEN" style={{ width: 120 }} onChange={handleChange}>
-                            <Option value="OPEN">OPEN</Option>
-                            <Option value="CLOSE">CLOSE</Option>
-                        </Select>
+    //                     <Select defaultValue="OPEN" style={{ width: 120 }} onChange={handleChange}>
+    //                         <Option value="OPEN">OPEN</Option>
+    //                         <Option value="CLOSE">CLOSE</Option>
+    //                     </Select>
 
-                    </Form.Item> */}
-                </Form>
-            </Modal>
-        );
-    };
+    //                 </Form.Item> */}
+    //             </Form>
+    //         </Modal>
+    //     );
+    // };
 
     return (
         <div>
