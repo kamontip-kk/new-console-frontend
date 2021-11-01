@@ -24,8 +24,8 @@ interface CollectionCreateFormProps {
 
 
 function CreateUpdate() {
-    const [visible, setVisible] = useState(false);
-    const [form] = Form.useForm();
+    // const [visible, setVisible] = useState(false);
+    // const [form] = Form.useForm();
     // const [imgName, setImgName] = useState();
     // const [image, setImage] = useState();
     const [imgUrl, setImgUrl] = useState('');
