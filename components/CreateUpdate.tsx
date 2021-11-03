@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input, Upload, message, Select } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
-import { UpdatesAPI } from "../pages/api/update/updates.api";
 import styles from "../styles/Home.module.css";
 import  storage  from '../firebase/firebase'
+import { CreateUpdateProps } from '../service/update/create.model';
+import { createUpdate } from "../service/update/update.service";
 // import { getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 const { Option } = Select;
 
-interface Values {
-    img: any;
-    title: string;
-    subtitle: string;
-    url: string;
-}
+// interface Values {
+//     img: any;
+//     title: string;
+//     subtitle: string;
+//     url: string;
+// }
 
-interface CollectionCreateFormProps {
-    visible: boolean;
-    onCreate: (values: Values) => void;
-    onCancel: () => void;
-}
+// interface CollectionCreateFormProps {
+//     visible: boolean;
+//     onCreate: (values: Values) => void;
+//     onCancel: () => void;
+// }
 
 
 
@@ -28,10 +29,18 @@ function CreateUpdate() {
     // const [form] = Form.useForm();
     // const [imgName, setImgName] = useState();
     // const [image, setImage] = useState();
+
     const [imgUrl, setImgUrl] = useState('');
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
     const [url, setUrl] = useState('');
+
+    const createUpdateProps: CreateUpdateProps = {
+        img: imgUrl,
+        title: title,
+        subtitle: subtitle,
+        url: url,
+      };
 
     // const props = {
     //     name: 'file',
@@ -84,29 +93,37 @@ function CreateUpdate() {
         // )
         // }
         
-        const img = imgUrl
+        // const img = imgUrl
         // const title = values.title
         // const subtitle = values.subtitle
         // const url = values.url
 
-        try {
-            const response = await UpdatesAPI.createUpdate({
-                img,
-                title,
-                subtitle,
-                url,
-            });
+        createUpdate(createUpdateProps)
+        .then((res:any) => {
+            console.log(res?.data)
+        })
+        .catch((e) => {
+            const title = e instanceof Error ? e.toString() : e?.response?.data?.message || null;
+        })
+
+        // try {
+        //     const response = await UpdatesAPI.createUpdate({
+        //         img,
+        //         title,
+        //         subtitle,
+        //         url,
+        //     });
       
-            if (response.error) {
-              console.log(response.message); 
-            } else {
-                // console.log("Received values of form: ", values);          
-            }
+        //     if (response.error) {
+        //       console.log(response.message); 
+        //     } else {
+        //         // console.log("Received values of form: ", values);          
+        //     }
             
       
-          } catch (error) {
-            console.log(error);
-          }
+        //   } catch (error) {
+        //     console.log(error);
+        //   }
         // setVisible(false);
     };
 

@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import { Carousel } from "antd";
 import styles from "../styles/Home.module.css";
-import { UpdatesAPI } from "../pages/api/update/updates.api";
-import { Update } from "../pages/api/update/update.entity";
 import Link from "next/link";
 import Image from "next/image";
-import axios from "axios";
+import { UpdateProps } from '../service/update/create.model';
+import { getUpdate } from "../service/update/update.service";
 
 // const myLoader = ({src}:any) => {
 //   return `${process.env.NEXT_PUBLIC_BASE_ASSET}/img/${src}`
 // }
 
 function UpdatesForYou() {
-  const [informs, setInforms] = useState<Update[]>([]);
+  const [informs, setInforms] = useState<UpdateProps[]>([]);
 
   const banner = (status: string) => {
     if (status === "CLOSE") {
@@ -24,17 +23,20 @@ function UpdatesForYou() {
   };
 
   useEffect(() => {
-    const fetchInforms = async () => {
-      const response = await UpdatesAPI.getAllUpdates();
-      setInforms(response);
-    };
+    getUpdate()
+      .then((res:any) => {
+        setInforms(res?.data)
+      })
+      .catch((e) => {
+        const title = e instanceof Error ? e.toString() : e?.response?.data?.message || null;
+      })
+    
+    // const fetchInforms = async () => {
+    //   const response = await UpdatesAPI.getAllUpdates();
+    //   setInforms(response);
+    // };
 
-    fetchInforms();
-
-    // axios.get(`http://localhost:8000/update`)
-    // .then(res => {
-    //     setInforms(res);
-    // })
+    // fetchInforms();
 
   }, []);
 

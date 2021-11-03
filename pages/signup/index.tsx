@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { AuthAPI } from "../api/auth/auth.api";
-import { useRouter } from "next/dist/client/router";
-import { redirect } from "next/dist/server/api-utils";
+import { Form, Input, Button, Checkbox, Modal } from "antd";
+import { useRouter } from "next/router";
+import { SignupProps } from '../../service/auth/auth.model';
+import { userSignup } from "../../service/auth/auth.service";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -10,23 +10,40 @@ const SignUp = () => {
   const router = useRouter();
 
   const onFinish = async (values: any) => {
-    try {
-      const response = await AuthAPI.signUp({
-        username,
-        password,
-      });
 
-      if (response.error) {
-        alert(response.message);
-        console.log(response); 
-      } else {
-        alert("Success");
-        router.push("/signin");
-      }
+    const signinProps: SignupProps = {
+      username: username,
+      password: password,
+    };
 
-    } catch (error) {
-      console.log(error);
-    }
+    userSignup(signinProps)
+    .then((res:any) => {
+      router.push('/signin');
+    })
+    .catch(e => {
+      const title = {e} instanceof Error ? e.toString() : e?.response?.data?.message || null;
+      // console.log(title);
+      // const title = e instanceof Error
+      //   ? e.toString() : e?.response?.data?.message || null;
+      // Modal.error({ title: title || 'Server Error', });
+    })
+    // try {
+    //   const response = await AuthAPI.signUp({
+    //     username,
+    //     password,
+    //   });
+
+    //   if (response.error) {
+    //     alert(response.message);
+    //     console.log(response); 
+    //   } else {
+    //     alert("Success");
+    //     router.push("/signin");
+    //   }
+
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const onFinishFailed = (errorInfo: any) => {

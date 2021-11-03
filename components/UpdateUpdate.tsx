@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { UpdateStatus } from '../pages/api/update/update-status.enum';
-import { UpdatesAPI } from '../pages/api/update/updates.api';
+import { UpdateStatus } from '../service/update/update-status.enum';
 import styles from "../styles/Home.module.css";
 import { Select } from 'antd';
-import { UpdateUpdateDto } from '../pages/api/update/dto/update-update.dto';
+import { UpdateUpdateProps } from '../service/update/create.model';
+import { updateUpdate } from "../service/update/update.service";
 
 const { Option } = Select;
 
@@ -11,21 +11,33 @@ function UpdateUpdate(){
     const [id, setId] = useState('');
     const [status, setStatus] = useState(UpdateStatus.OPEN);
 
+    const updateUpdateProps: UpdateUpdateProps = {
+        status: status,
+    };
+
     
     const onSubmit = async () =>{
 
-        try {
-            const response = await UpdatesAPI.updateUpdate(id,{status});
+        updateUpdate(id,updateUpdateProps)
+        .then((res:any) => {
+            console.log(res?.data)
+        })
+        .catch((e) => {
+            const title = e instanceof Error ? e.toString() : e?.response?.data?.message || null;
+        })
+
+        // try {
+        //     const response = await UpdatesAPI.updateUpdate(id,{status});
       
-            if (response.error) {
-              console.log(response.message); 
-            } else {
-                console.log(`Status ID : ${id} is updated`);          
-            }
+        //     if (response.error) {
+        //       console.log(response.message); 
+        //     } else {
+        //         console.log(`Status ID : ${id} is updated`);          
+        //     }
       
-          } catch (error) {
-            console.log(error);
-          }
+        //   } catch (error) {
+        //     console.log(error);
+        //   }
     }
 
     function handleChange(value:any) {

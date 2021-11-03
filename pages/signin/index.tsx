@@ -1,21 +1,67 @@
 import React, { useState,useEffect } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { useRouter } from "next/dist/client/router";
-import { AuthAPI } from "../api/auth/auth.api";
-import Link from "next/dist/client/link";
+import { Form, Input, Button, Checkbox, Modal } from "antd";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import styles from "../../styles/Home.module.css";
+import { SigninProps } from '../../service/auth/auth.model';
+import { userSignin } from "../../service/auth/auth.service";
+import axios from 'axios';
+
+// const { useForm } = Form;
 
 const SignIn = () => {
+  // const [form] = useForm();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const onFinish = async (values: any) => {
-    try {
-      const response = await AuthAPI.signIn({
-        username,
-        password,
-      });
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    if(token && token !== undefined){
+      router.push('/update');
+    }
+  }), [];
+
+  const onFinish = async (allvalues: any) => {
+    // form.validateFields().then(async (values) =>{
+      const signinProps: SigninProps = {
+        username: username,
+        password: password,
+      };
+
+      // try {
+      //   const res = await userSignin(username,password)
+      //   console.log(res);
+        
+      //   // return (res);
+
+      // } catch (err) {
+      //   console.log('Server Error' + err);
+      // }
+      
+      userSignin(signinProps)
+      .then((res:any) => {
+        localStorage.setItem('token', res?.data?.token);
+        if(!localStorage.getItem('token')) return
+        router.push('/update');
+      })
+      .catch((e) => {
+        const title = e instanceof Error ? e.toString() : e?.response?.data?.message || null;
+        // alert(title);
+        // Modal.error({ title: title || 'Server Error', });
+      })
+    // })
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
+      // try {
+    //   const response = await AuthAPI.signIn({
+    //     username,
+    //     password,
+    //   });
 
       // if (response.error) {
       //   alert(response.message);
@@ -30,25 +76,14 @@ const SignIn = () => {
       //   }
       // }
 
-      console.log(response.token);
-      localStorage.setItem('token',response.token)
-      router.push("/");
+      // console.log(response.token);
+      // localStorage.setItem('token',response.token)
+      // router.push("/");
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  useEffect(()=>{
-    const token = localStorage.getItem('token');
-    if(token && token !== undefined){
-      // router.push('/');
-    }
-  }), [];
 
   return (
     <div className={styles.signin}>
@@ -67,7 +102,9 @@ const SignIn = () => {
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input onChange={(e) => setUsername(e.target.value)} />
+          <Input 
+          onChange={(e) => setUsername(e.target.value)} 
+          />
         </Form.Item>
 
         <Form.Item
@@ -75,20 +112,22 @@ const SignIn = () => {
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password onChange={(e) => setPassword(e.target.value)} />
+          <Input.Password 
+          onChange={(e) => setPassword(e.target.value)} 
+          />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name="remember"
           valuePropName="checked"
           wrapperCol={{ offset: 8, span: 16 }}
         >
           <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Signin
           </Button>
         </Form.Item>
       </Form>

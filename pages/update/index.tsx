@@ -1,16 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
-import PleaseLogin from '../components/PleaseLogin'
-import UpdatesForYou from '../components/UpdatesForYou'
-import CreateUpdate from '../components/CreateUpdate'
-import DeleteUpdate from '../components/DeleteUpdate'
-import UpdateUpdate from '../components/UpdateUpdate'
-import styles from '../styles/Home.module.css'
+import Navbar from '../../components/Navbar'
+import PleaseLogin from '../../components/PleaseLogin'
+import UpdatesForYou from '../../components/UpdatesForYou'
+import CreateUpdate from '../../components/CreateUpdate'
+import DeleteUpdate from '../../components/DeleteUpdate'
+import UpdateUpdate from '../../components/UpdateUpdate'
+import styles from '../../styles/Home.module.css'
+import { getAuthToken } from '../../service/auth/auth.service';
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const [islogin, setIslogin] = useState(false);
+  const router = useRouter();
+
   const content = () =>{
     if(islogin){
       return(
@@ -24,21 +28,26 @@ const Home: NextPage = () => {
     }
     else{
       return(
-        <div>
-          <PleaseLogin/>
-        </div>
+        <PleaseLogin/>
       )
     }
 
   }
   useEffect(()=>{
-    const token = localStorage.getItem('token');
-    if(!token){
-      // router.push('/signin');
-      setIslogin(false)
-    } else {
+    const jwtToken = getAuthToken();
+    if (jwtToken !== null) {
       setIslogin(true);
+    } else {
+      setIslogin(false)
     }
+
+    // const token = localStorage.getItem('token');
+    // if(!token){
+    //   // router.push('/signin');
+    //   setIslogin(false)
+    // } else {
+    //   setIslogin(true);
+    // }
   }), [];
 
   return (

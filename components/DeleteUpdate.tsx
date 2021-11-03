@@ -1,23 +1,32 @@
 import React, { useState } from 'react'
-import { UpdatesAPI } from '../pages/api/update/updates.api';
 import styles from "../styles/Home.module.css";
+import { deleteUpdate } from "../service/update/update.service";
 
 function DeleteUpdate () {
     const [id, setId] = useState('');
 
     const onSubmit = async () =>{
-        try {
-            const response = await UpdatesAPI.deleteUpdateById(id);
+        
+        deleteUpdate(id)
+        .then((res:any) => {
+            console.log(res?.data)
+        })
+        .catch((e) => {
+            const title = e instanceof Error ? e.toString() : e?.response?.data?.message || null;
+        })
+
+        // try {
+        //     const response = await UpdatesAPI.deleteUpdateById(id);
       
-            if (response.error) {
-              console.log(response.message); 
-            } else {
-                console.log(`An Update with ID : ${id} is deleted`);          
-            }
+        //     if (response.error) {
+        //       console.log(response.message); 
+        //     } else {
+        //         console.log(`An Update with ID : ${id} is deleted`);          
+        //     }
       
-          } catch (error) {
-            console.log(error);
-          }
+        //   } catch (error) {
+        //     console.log(error);
+        //   }
     }
 
     return (
