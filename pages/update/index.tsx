@@ -8,48 +8,10 @@ import CreateUpdate from '../../components/CreateUpdate'
 import DeleteUpdate from '../../components/DeleteUpdate'
 import UpdateUpdate from '../../components/UpdateUpdate'
 import styles from '../../styles/Home.module.css'
-import { getAuthToken } from '../../service/auth/auth.service';
-import { useRouter } from "next/router";
+// import { getAuthToken } from '../../service/auth/auth.service';
+// import { Router, useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const [islogin, setIslogin] = useState(false);
-  const router = useRouter();
-
-  const content = () =>{
-    if(islogin){
-      return(
-        <div>
-          <UpdatesForYou/>
-          <CreateUpdate/>
-          <DeleteUpdate/>
-          <UpdateUpdate/>
-        </div>
-      )
-    }
-    else{
-      return(
-        <PleaseLogin/>
-      )
-    }
-
-  }
-  useEffect(()=>{
-    const jwtToken = getAuthToken();
-    if (jwtToken !== null) {
-      setIslogin(true);
-    } else {
-      setIslogin(false)
-    }
-
-    // const token = localStorage.getItem('token');
-    // if(!token){
-    //   // router.push('/signin');
-    //   setIslogin(false)
-    // } else {
-    //   setIslogin(true);
-    // }
-  }), [];
-
   return (
     <div className={styles.container}>
       <Head>
@@ -61,7 +23,13 @@ const Home: NextPage = () => {
       {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
       <div>
         <Navbar/>
-        {content()}
+        <div>
+          <UpdatesForYou/>
+          <CreateUpdate/>
+          <DeleteUpdate/>
+          <UpdateUpdate/>
+        </div>
+        {/* {content()} */}
       </div>
     </div>
     

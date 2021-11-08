@@ -15,15 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         if (error?.response?.status === 401) {
           if (pageProps.pathname === '/signin') return;
 
-          console.log('Unauthorized');   
+          console.log('Please Login');   
           router.push(`/signin`);
         }
 
         console.log(error.response.data)
-        alert(error.response.data.message)
-        // console.log('Unauthorized')
-        
-        // router.push(`/signup`);
+        alert(error.response.data.message)    
+        // router.push(`/signin`);
       }
 
       // if (unredirected404Route.includes(Object.keys(router.query)?.[0])) {

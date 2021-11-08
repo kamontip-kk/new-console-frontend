@@ -53,9 +53,9 @@ function UpdateUpdate(){
                 <input onChange={(e) => setId(e.target.value)} type="text" name="id" placeholder="ID" required/>
                 {/* dropdown */}
 
-                <Select defaultValue="OPEN" style={{ width: 120 }} onChange={handleChange}>
-                    <Option value="OPEN">OPEN</Option>
-                    <Option value="CLOSE">CLOSE</Option>
+                <Select defaultValue={UpdateStatus.OPEN} style={{ width: 120 }} onChange={handleChange}>
+                    <Option value={UpdateStatus.OPEN}>OPEN</Option>
+                    <Option value={UpdateStatus.CLOSE}>CLOSE</Option>
                 </Select>
                 <input type="submit"/>
             </form>
